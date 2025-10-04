@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import Footer from '../Footer/Footer';
 import Sidebar from '../Sidebar/Sidebar';
 import './Root.css'
+import User from '../User/User';
 
 const Root = () => {
     return (

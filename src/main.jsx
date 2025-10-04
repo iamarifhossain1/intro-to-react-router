@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -9,6 +9,19 @@ import Root from './Components/Root/Root.jsx';
 import Home from './Components/Home/Home.jsx';
 import Mobile from './Components/Mobile/Mobile.jsx';
 import Laptop from './Components/Laptop/Laptop.jsx';
+import User from './Components/User/User.jsx';
+import UserProfile from './Components/UserProfile/UserProfile.jsx';
+import UserDetails from './Components/UserDetails/UserDetails.jsx';
+import Posts from './Components/Posts/Posts.jsx';
+import PostDeatails from './Components/PostDetails/PostDeatails.jsx';
+
+const loadUser = async () => { 
+  const fetchUser = await fetch('https://jsonplaceholder.typicode.com/users');
+  const response = await fetchUser.json();
+  return response;
+}
+
+ const userPromise = loadUser();
 
 const router = createBrowserRouter([
   {
@@ -17,7 +30,13 @@ const router = createBrowserRouter([
     children: [
       {index: true, Component: Home},
       {path: 'Mobile', Component: Mobile},
-      {path: 'Laptop', Component: Laptop}
+      {path: 'Laptop', Component: Laptop},
+      {path: 'User', loader: () => fetch('https://jsonplaceholder.typicode.com/users'), Component: User},
+      {path: 'UserProfile',element: <Suspense fallback={<span>Loading.....</span>}><UserProfile userPromise={userPromise}></UserProfile></Suspense>},
+      {path: 'user/:userId', loader: ({params}) => fetch(`https://jsonplaceholder.typicode.com/users/${params.userId}`), Component: UserDetails},
+      {path: 'posts', loader: () => fetch('https://jsonplaceholder.typicode.com/posts'), Component: Posts },
+      {path: 'posts/:postId', loader: ({params}) => fetch(`https://jsonplaceholder.typicode.com/posts/${params.postId}`), Component: PostDeatails}
+
     ]
   },
 
