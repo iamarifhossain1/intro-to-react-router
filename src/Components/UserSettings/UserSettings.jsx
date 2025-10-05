@@ -2,6 +2,8 @@ import { Link } from 'react-router';
 import './UserSettings.css'
 const UserSettings = ({user}) => {
     const {id,name, email, phone} = user;
+
+    
     
     return (
         <div className='userSettingStyle'>
