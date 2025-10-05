@@ -58,6 +58,11 @@ const router = createBrowserRouter([
   {
     path: 'app',
     Component: App
+  },
+
+  {
+    path: '*', 
+    element: <h3>404 Not Found !</h3>
   }
 ]);
 

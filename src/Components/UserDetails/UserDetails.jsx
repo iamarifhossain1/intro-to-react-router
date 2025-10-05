@@ -4,10 +4,8 @@ import { useLoaderData, useParams } from 'react-router';
 const UserDetails = () => {
     const user = useLoaderData();
     // console.log(user);
-
     const params = useParams();
     console.log(params);
-    
     
     return (
         <div>
